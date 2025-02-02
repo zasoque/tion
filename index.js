@@ -54,7 +54,7 @@ function levenshteinDistance(s, t) {
 
 function calculateKey(query, row) {
     let tokens = [];
-    for (let i = 1; i < 10; i++) {
+    for (let i = 0; i < 10; i++) {
         const cell = row[i].replace(/[\(\[].+[\)\]]/, "").trim();
         tokens = [...tokens, ...cell.split(/;|,/).map(t => t.trim())];
     }
@@ -78,7 +78,7 @@ function search(query) {
     const result = dictionary.filter(
       (row) =>
         !row[1].startsWith("(") &&
-        row.slice(1, 10).some((value) => normalise(value).includes(normalisedQuery))
+        row.slice(0, 10).some((value) => normalise(value).includes(normalisedQuery))
     );
 
     resultDiv.innerHTML = "";
