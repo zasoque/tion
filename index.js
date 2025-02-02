@@ -88,7 +88,7 @@ function search(query) {
 
         return aKey - bKey;
     });
-    result.forEach(row => insertRow(row));
+    result.slice(0, 20).forEach(row => insertRow(row));
 }
 
 function insertRow(row) {
