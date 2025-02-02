@@ -10,8 +10,12 @@ document.addEventListener("DOMContentLoaded", () => {
     queryInput.addEventListener("input", (e) => {
         let value = e.target.value;
 
-        if (value.length >= 2) {
-            search(value)
+        if (value.length === 0) {
+            resultDiv.innerHTML = "";
+        }
+
+        if (value.length >= 2 || ('가' <= value[0] && value[0] <= '힣')) {
+            search(value);
         }
     });
 });
@@ -28,10 +32,62 @@ function loadDictionary() {
         });
 }
 
+function levenshteinDistance(s, t) {
+  if (!s.length) return t.length;
+  if (!t.length) return s.length;
+  const arr = [];
+  for (let i = 0; i <= t.length; i++) {
+    arr[i] = [i];
+    for (let j = 1; j <= s.length; j++) {
+      arr[i][j] =
+        i === 0
+          ? j
+          : Math.min(
+              arr[i - 1][j] + 1,
+              arr[i][j - 1] + 1,
+              arr[i - 1][j - 1] + (s[j - 1] === t[i - 1] ? 0 : 1)
+            );
+    }
+  }
+  return arr[t.length][s.length];
+}
+
+function calculateKey(query, row) {
+    let tokens = [];
+    for (let i = 1; i < 10; i++) {
+        const cell = row[i].replace(/[\(\[].+[\)\]]/, "").trim();
+        tokens = [...tokens, ...cell.split(/;|,/).map(t => t.trim())];
+    }
+
+    let closest = Infinity;
+    tokens.forEach(token => {
+        closest = Math.min(closest, levenshteinDistance(token, query));
+    });
+
+    console.log(query, row[1], closest);
+    return closest;
+}
+
+function normalise(str) {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+}
+
 function search(query) {
-    const result = dictionary.filter((row) => row.slice(1, 10).some((value) => value.includes(query)));
+    const normalisedQuery = normalise(query);
+
+    const result = dictionary.filter(
+      (row) =>
+        !row[1].startsWith("(") &&
+        row.slice(1, 10).some((value) => normalise(value).includes(normalisedQuery))
+    );
 
     resultDiv.innerHTML = "";
+    result.sort((a, b) => {
+        const aKey = calculateKey(query, a);
+        const bKey = calculateKey(query, b);
+
+        return aKey - bKey;
+    });
     result.forEach(row => insertRow(row));
 }
 
