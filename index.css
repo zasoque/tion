@@ -3,6 +3,7 @@ body {
     margin: auto;
     padding: 0 24px;
     color: #19191e;
+    font-family: "Pretendard", sans-serif;
 }
 
 a {
@@ -29,7 +30,7 @@ a {
 #query {
     display: block;
     margin: 0 auto;
-    width: 360px;
+    width: 280px;
     font-size: 16px;
     padding: 10px;
     border: none;
