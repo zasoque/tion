@@ -1,9 +1,36 @@
 body {
+    --black: #19191e;
+    --white: #f7f7f9;
+    --gray: #2c2c2c;
+
     max-width: 640px;
     margin: auto;
     padding: 0 24px;
-    color: #19191e;
     font-family: "Pretendard", sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: var(--black);
+        color: var(--white);
+        color-scheme: dark;
+    }
+
+    .pos {
+        color: var(--white);
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    body {
+        background-color: var(--white);
+        color: var(--black);
+        color-scheme: light;
+    }
+
+    .pos {
+        color: var(--gray);
+    }
 }
 
 a {
@@ -63,14 +90,6 @@ a {
     margin-bottom: 12px;
 }
 
-.pos {
-    color: #2c2c2c;
-}
-
 .meaning {
     margin: 4px 0;
 }
-
-/* .meaning-cell {
-    
-} */
