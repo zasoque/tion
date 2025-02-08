@@ -14,9 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
             resultDiv.innerHTML = "";
         }
 
-        if (value.length >= 2 || ('가' <= value[0] && value[0] <= '힣')) {
-            search(value);
-        }
+        search(value);
     });
 });
 
@@ -29,6 +27,7 @@ function loadDictionary() {
         .then(data => {
             header = data.values.splice(0, 1)[0];
             dictionary = data.values;
+            search(queryInput.value);
         });
 }
 
@@ -73,6 +72,10 @@ function normalise(str) {
 }
 
 function search(query) {
+    if (query.length < 2 && !('가' <= query[0] && query[0] <= '힣')) {
+        return;
+    }
+
     const normalisedQuery = normalise(query);
 
     const result = dictionary.filter(
