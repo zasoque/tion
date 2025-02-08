@@ -61,6 +61,7 @@ a {
     font-size: 16px;
     padding: 10px;
     border: none;
+    border-radius: 4px;
     border-bottom: 2px solid #fdde59;
     transition: border-bottom 0.1s ease-in-out;
 }
