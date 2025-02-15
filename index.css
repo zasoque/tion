@@ -94,3 +94,13 @@ a {
 .meaning {
     margin: 4px 0;
 }
+
+.word-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--white);
+    box-shadow: var(--black) 0 0 5px;
+    padding: 12px;
+    border-radius: 8px;
+}

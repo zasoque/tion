@@ -1,9 +1,13 @@
 let queryInput;
 let resultDiv;
+let popupDiv;
+let popupResultDiv;
 
 document.addEventListener("DOMContentLoaded", () => {
     queryInput = document.querySelector("#query");
     resultDiv = document.querySelector("#result");
+    popupDiv = document.querySelector("#word-popup");
+    popupResultDiv = document.querySelector("#word-popup--result");
 
     loadDictionary();
 
@@ -63,7 +67,6 @@ function calculateKey(query, row) {
         closest = Math.min(closest, levenshteinDistance(token, query));
     });
 
-    console.log(query, row[1], closest);
     return closest;
 }
 
@@ -94,7 +97,67 @@ function search(query) {
     result.slice(0, 20).forEach(row => insertRow(row));
 }
 
-function insertRow(row) {
+function labelify(element) {
+    const content = element.textContent;
+
+    const numbers = content.match(/\d+/g);
+
+    if (numbers === null) {
+        return element;
+    }
+
+    const positions = [0];
+    numbers.forEach(number => {
+        positions.push(content.indexOf(number));
+        positions.push(content.indexOf(number) + number.length);
+    })
+    positions.push(content.length);
+
+    const result = element.cloneNode();
+    result.innerHTML = "";
+
+    for (let i = 0; i < positions.length-1; i++) {
+        const isNumber = i % 2 === 0;
+        const startPos = positions[i];
+        const endPos = positions[i+1];
+        const string = content.substring(startPos, endPos);
+
+        if (isNumber) {
+            const span = document.createElement("span");
+            span.innerText = string;
+            result.appendChild(span);
+            continue;
+        }
+
+        const span = document.createElement("span");
+        span.innerText = string;
+        span.classList.add("word-popup--number");
+        result.appendChild(span);
+
+        const row = dictionary.filter(r => r[0] === string)[0];
+        const div = createDiv(row);
+        div.classList.remove("result");
+
+        span.addEventListener("mouseover", (e) => {
+            popupDiv.innerHTML = "";
+            popupDiv.appendChild(div);
+            popupDiv.style.display = "block";
+        });
+
+        span.addEventListener("mouseleave", (e) => {
+            popupDiv.style.display = "none";
+        });
+    }
+
+    return result;
+}
+
+document.addEventListener("mousemove", (e) => {
+    popupDiv.style.top = `${e.clientY + 10}px`;
+    popupDiv.style.left = `${e.clientX - 4}px`;
+})
+
+function createDiv(row) {
     // https://me.shtelo.org/dictform/word.html
     // ?word=asd
     // &pronunciation=asd
@@ -153,7 +216,7 @@ function insertRow(row) {
     const etymologyDiv = document.createElement("div");
     etymologyDiv.classList.add("etymology");
     etymologyDiv.textContent = (row[10] + " " + (row[11] ? row[11] : "")).trim();
-    div.appendChild(etymologyDiv);
+    div.appendChild(labelify(etymologyDiv));
 
     const meaningDiv = document.createElement("div");
 
@@ -180,5 +243,9 @@ function insertRow(row) {
         div.appendChild(meaningDiv);
     }
 
-    resultDiv.appendChild(div);
+    return div;
+}
+
+function insertRow(row) {
+    resultDiv.appendChild(createDiv(row));
 }
