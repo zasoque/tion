@@ -3,7 +3,11 @@
   "name": "Vapy",
   "version": "1.0.0",
   "description": "Zasospiquavapy",
-  "icons": {
-    "800": "./icon.svg",
-  },
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "800x800"
+    }
+  ]
 }
