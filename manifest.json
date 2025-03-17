@@ -1,0 +1,9 @@
+{
+  "manifest_version": 3,
+  "name": "Vapy",
+  "version": "1.0.0",
+  "description": "Zasospiquavapy",
+  "icons": {
+    "800": "./icon.svg",
+  },
+}
