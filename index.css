@@ -1,106 +1,116 @@
 body {
-    --black: #19191e;
-    --white: #f7f7f9;
-    --gray: #2c2c2c;
+  --black: #19191e;
+  --white: #f7f7f9;
+  --gray: #2c2c2c;
 
-    max-width: 640px;
-    margin: auto;
-    padding: 0 24px;
-    font-family: "Pretendard", sans-serif;
+  max-width: 640px;
+  margin: auto;
+  padding: 0 24px;
+  font-family: "Pretendard", sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
-    body {
-        background-color: var(--black);
-        color: var(--white);
-        color-scheme: dark;
-    }
+  body {
+    background-color: var(--black);
+    color: var(--white);
+    color-scheme: dark;
+  }
 
-    .pos {
-        color: var(--white);
-    }
+  .pos {
+    color: var(--white);
+  }
+
+  .word-popup {
+    background-color: var(--gray);
+    color: var(--white);
+    box-shadow: 0 0 12px var(--black);
+  }
 }
 
 @media (prefers-color-scheme: light) {
-    body {
-        background-color: var(--white);
-        color: var(--black);
-        color-scheme: light;
-    }
+  body {
+    background-color: var(--white);
+    color: var(--black);
+    color-scheme: light;
+  }
 
-    .pos {
-        color: var(--gray);
-    }
+  .pos {
+    color: var(--gray);
+  }
+
+  .word-popup {
+    background-color: var(--white);
+    color: var(--black);
+    box-shadow: 0 0 12px var(--gray);
+  }
 }
 
 a {
-    color: inherit;
-    text-decoration: none;
+  color: inherit;
+  text-decoration: none;
 }
 
 .page-title {
-    font-size: 36px;
-    font-weight: 700;
-    margin-bottom: 10px;
-    text-align: center;
-    margin-top: 40px;
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-align: center;
+  margin-top: 40px;
 }
 
 .page-subtitle {
-    font-size: 18px;
-    font-weight: 400;
-    margin-bottom: 20px;
-    color: #666;
-    text-align: center;
+  font-size: 18px;
+  font-weight: 400;
+  margin-bottom: 20px;
+  color: #666;
+  text-align: center;
 }
 
 #query {
-    display: block;
-    margin: 0 auto;
-    width: 280px;
-    font-size: 16px;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    border-bottom: 2px solid #fdde59;
-    transition: border-bottom 0.1s ease-in-out;
+  display: block;
+  margin: 0 auto;
+  width: 280px;
+  font-size: 16px;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  border-bottom: 2px solid #fdde59;
+  transition: border-bottom 0.1s ease-in-out;
 }
 
 #query:focus {
-    outline: none;
-    border-bottom: 5px solid #fdde59;
+  outline: none;
+  border-bottom: 5px solid #fdde59;
 }
 
 .result {
-    margin: 32px 0;
+  margin: 32px 0;
 }
 
 .title {
-    font-size: 2em;
-    font-weight: bold;
+  font-size: 2em;
+  font-weight: bold;
 }
 
 .id {
-    font-variant-position: super;
-    margin-left: 4px;
+  font-variant-position: super;
+  margin-left: 4px;
 }
 
 .etymology {
-    font-size: 0.8em;
-    color: #aaa;
-    margin-bottom: 12px;
+  font-size: 0.8em;
+  color: #aaa;
+  margin-bottom: 12px;
 }
 
 .meaning {
-    margin: 4px 0;
+  margin: 4px 0;
 }
 
 .word-popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: var(--white);
-    box-shadow: var(--black) 0 0 5px;
-    padding: 12px;
-    border-radius: 8px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 12px;
+  border-radius: 8px;
 }
