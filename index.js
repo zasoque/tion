@@ -20,6 +20,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     search(value);
   });
+
+  const params = new URLSearchParams(window.location.search);
+  const q = params.get('q');
+
+  if (q) {
+    queryInput.value = q;
+    search(q);
+  }
 });
 
 const KEY = "AIzaSyBSaX_PbqIgynBFq7csvxenj3BXro05xo4";
